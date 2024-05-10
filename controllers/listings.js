@@ -37,7 +37,6 @@ module.exports.createListing = async(req,res,next)=>{
 };
 module.exports.results = async (req, res) => {
     let query = req.query.result;
-    // Creating a case-insensitive regular expression for the query
     let regexQuery = new RegExp(query, 'i');
     let allListings = await Listing.find({
         $or: [
@@ -96,6 +95,14 @@ module.exports.renderEditForm = async(req,res)=>{
     originalImageUrl = originalImageUrl.replace("/upload","/upload/h_200,w_250")
     res.render("edit.ejs",{listing,originalImageUrl});
 };
+module.exports.updateAvailability = async(req,res)=>{
+    let{id} = req.params;
+    let{availability} = req.body;
+    let listing=await Listing.findByIdAndUpdate(id,{$set:{availability:availability}});
+    await listing.save();
+    req.flash("success","Availability Updated");
+    res.redirect(`/listings/${id}`);
+}
 module.exports.updateListing = async(req,res)=>{
     let{id} = req.params;
    let listing =  await Listing.findByIdAndUpdate(id,{...req.body.listing});
@@ -114,3 +121,4 @@ module.exports.destroyListing = async (req, res) => {
     req.flash("success","Listing deleted!");
     res.redirect("/listings");
   };
+ 

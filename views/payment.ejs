@@ -1,0 +1,22 @@
+<% layout("/layouts/boilerplate")%>
+<div class="card text-center">
+    <div class="card-header">
+       <b> Booking Details</b>
+    </div>
+    <div class="card-body">
+      <br>
+      <p class="card-text">Name : <b><%=booking.booking_name%></b></p>
+      <p class="card-text">check-in-date : <b><%=booking.check_in_date%></b></p>
+      <p class="card-text">check-out-date : <b><%=booking.check_out_date%></b></p>
+      <p class="card-text">number of guest's : <b><%=booking.number_of_guest%></b></p>
+      <p class="card-text">Room Type : <b><%=booking.room_type%></b></p> 
+      <p class="card-text">Total Amount (+18% GST) : 	&#8377;<b> <%=booking.total_amount%></b> </p> 
+      <a href="/listings" class="btn btn-primary">Go To Home Page</a>
+      <br>  
+    </div>
+    <div class="card-footer text-muted">
+      <b> <i>food charges & other expenses is not covered in the total amount!</i></b>
+      <br>
+      <b>if you want to edit ot cancel the booking go to booking section.</b>
+    </div>
+</div>

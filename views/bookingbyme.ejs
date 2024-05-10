@@ -1,0 +1,62 @@
+<% layout("/layouts/boilerplate")%>
+<style>
+    .blue{
+        background-color: #4267B2;
+        color:white;
+    }
+    .accept{
+        color: green;
+    }
+    .decline{
+        color:red;
+    }
+    .pending{
+        color:rgb(206, 206, 8);
+    }
+    .form-bt{
+        display: inline;
+    }
+    #heading3{
+        text-align: center;
+        margin-top: 10rem;
+    }
+</style>
+<% if(listings.length){%>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+        <%for(listing of listings){%>
+      <% for(booking of listing.bookings){ %>
+        <div class="card text-center mb-3 ">
+            <div class="card-header blue">
+               <b class="white"> Booking Details</b>
+            </div>
+            <div class="card-body">
+              <br>
+              <%if(booking.booking_status==="accepted"){%>
+                  <p class="card-text ">Booking status: <b class="accept"><%=booking.booking_status%></b></p>
+              <%}else if(booking.booking_status==="declined"){%>
+                <p class="card-text">Booking status: <b class="decline"><%=booking.booking_status%></b></p>
+                <%}else{%>
+                    <p class="card-text ">Booking status: <b class="pending"><%=booking.booking_status%></b></p>
+                    <%}%>
+              <p class="card-text">Name: <b><%=booking.booking_name%></b></p>
+                <p class="card-text">Hotel Name : <b><%=listing.title%></b></p>
+                <p class="card-text">Address : <b><%=listing.location%>,<%=listing.country%></b></p>
+                <p class="card-text">Price : <b>	&#8377;<%=listing.price%>/night</b></p>
+                <p class="card-text">check-in-date : <b><%=booking.check_in_date%></b></p>
+                <p class="card-text">check-out-date : <b><%=booking.check_out_date%></b></p>
+                <p class="card-text">number of guest's : <b><%=booking.number_of_guest%></b></p>
+                <p class="card-text">Room Type : <b><%=booking.room_type%></b></p> 
+                <p class="card-text">Total Amount (+18% GST) : 	&#8377;<b> <%=booking.total_amount%></b> </p> 
+                <a href="/listings/bookingsbyme/<%=booking._id%>/edit" class="btn blue  offset-1 ">Edit</a> 
+                <form action="/listings/bookingsbyme/<%=booking._id%>/del/<%=listing._id%>?_method=DELETE" method="post" class="form-bt ms-4 ">
+                    <button class="btn btn-dark">Cancel</button>
+                </form>
+                 
+            </div>
+        </div>
+            <%}%>
+            <%}%>
+    </div>
+    <%}else{%>
+      <h3 id="heading3">No Upcoming Bookings Now!</h3>
+    <%}%>

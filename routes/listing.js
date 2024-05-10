@@ -1,11 +1,13 @@
 const express = require('express');
+const Booking = require("../models/booking.js");
+const Listing = require("../models/listing.js");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
 const {isLoggedIn,isOwner,validatelisting} = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
+const bookingController = require("../controllers/bookings.js")
 const multer  = require('multer');
 const {storage} = require("../cloudconfig.js");
-const Listing = require('../models/listing.js');
 const upload = multer({storage });
 router.route("/").get(wrapAsync(listingController.index)).post(isLoggedIn,upload.single('listing[image]'),validatelisting,wrapAsync(listingController.createListing));
 router.get("/new",isLoggedIn,listingController.renderNewForm);
@@ -19,7 +21,16 @@ router.get("/amazingpools", wrapAsync(listingController.amazingpools));
 router.get("/mountains", wrapAsync(listingController.mountains));
 router.get("/iconiccities", wrapAsync(listingController.iconiccities));
 router.get("/result",wrapAsync(listingController.results));
+router.get("/bookingsbyme",isLoggedIn,wrapAsync(bookingController.bookingsbyme));
+router.get("/bookingsforme",isLoggedIn,wrapAsync(bookingController.bookingforme));
+router.put("/bookingsforme/:id",isLoggedIn,wrapAsync(bookingController.updateStatus));
+router.delete("/bookingsbyme/:bookId/del/:id",isLoggedIn,wrapAsync(bookingController.destroybooking));
+router.put("/:id/available",isLoggedIn,wrapAsync(listingController.updateAvailability));
+router.get("/:id/booking",isLoggedIn,wrapAsync(bookingController.getBookingForm));
+router.post("/:id/booking",isLoggedIn,wrapAsync(bookingController.postBooking));
+router.get("/:id/payment/:bookingId",isLoggedIn,wrapAsync(bookingController.bookingPayments));
+router.get("/bookingsbyme/:id/edit",isLoggedIn,wrapAsync(bookingController.geteditbooking));
+router.put("/bookingsbyme/:id/edit",isLoggedIn,wrapAsync(bookingController.updatebooking));
 router.route("/:id").get(wrapAsync(listingController.showListing)).put(isLoggedIn,isOwner,upload.single("listing[image]"),validatelisting,wrapAsync(listingController.updateListing)).delete(isLoggedIn,isOwner,wrapAsync( listingController.destroyListing));
 router.get("/:id/edit",isLoggedIn,isOwner,wrapAsync(listingController.renderEditForm));
-
 module.exports = router;

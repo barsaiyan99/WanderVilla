@@ -31,7 +31,27 @@ const listing = <%-JSON.stringify(listing)%>;
       <button class="btn btn-dark offset-5">Delete</button>
     </form>
     </div>
+    <hr>
+   <form action="/listings/<%=listing._id%>/available?_method=PUT" method="POST" class="mb-3 col-3 offset-3">
+      <h5>Is Your Listing Available ? </h5>
+      <label for="yes">&nbsp;&nbsp;<b>YES</b>&nbsp;&nbsp;</label>
+      <input type="radio" id="yes" name="availability" value="true">
+      <label for="no">&nbsp;&nbsp;<b>NO</b>&nbsp;&nbsp;</label>
+      <input type="radio" id="no" name="availability" value="false">
+      <button class="btn btn-dark offset-1">Submit</button>
+    </form>
     <%}%>
+    <% if(listing.availability === true){%>
+      <div class="offset-3 mb-3">
+      <p><i>As of now listing availability is Open</i></p></div><hr>
+      <form action="/listings/<%=listing._id%>/booking" method="get" class="offset-3 mb-3">
+        <h5>Book your Home Away From Home</h5>
+        <button class="btn btn-dark">Book Now!</button>
+      </form>
+      <%}else{%>
+        <div class="offset-3">
+          <p><i>As of now listing availability is Closed</i></p></div>
+        <%}%>
     <hr>
     <div class="col-8 offset-3 mb-3">
       <% if(currUser){%>

@@ -1,0 +1,55 @@
+<% layout("/layouts/boilerplate")%>
+<style>
+    #heading3{
+        text-align: center;
+        margin-top: 10rem;
+    }
+    .green{
+        background-color: green;
+        color:white;
+    }
+    .red{
+        background-color: 	#8B0000;
+        color:white;
+    }
+    .green:hover{
+        background-color: rgb(6, 192, 6);
+        color: white;
+    }
+    .red:hover{
+        background-color: red;
+        color: white;
+    }
+</style>
+<% if(allListings.length){%>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+      <% for(listing of allListings){ %>
+        <%for(booking of listing.bookings){%>
+                <div class="card col listing-card">
+                    <img src="<%=listing.image.url%>" class="card-img-top" alt="listing_image" style="height: 20rem">
+                    <!-- <div class="card-img-overlay"></div> -->
+                    <div class="card-body">
+                        <br>
+                        <p class="card-text"><b><%=listing.title%></b></p>
+                        <p class="card-text">Name : <b><%=booking.booking_name%></b></p>
+                        <p class="card-text">check-in-date : <b><%=booking.check_in_date%></b></p>
+                        <p class="card-text">check-out-date : <b><%=booking.check_out_date%></b></p>
+                        <p class="card-text">number of guest's : <b><%=booking.number_of_guest%></b></p>
+                        <p class="card-text">Room Type : <b><%=booking.room_type%></b></p> 
+                        <p class="card-text">Total Amount (+18% GST) : 	&#8377;<b> <%=booking.total_amount%></b> </p> 
+                        <%if(booking.booking_status==="pending"){%>
+                        <form method="POST" action="/listings/bookingsforme/<%=booking._id%>?_method=PUT">
+                            <button class="btn green" name="status" value="accepted">Accept</button>
+                            <button class="btn red" name="status" value="declined">Decline</button>
+                          </form>
+                          <%}else{%>
+                            <button class="btn btn-dark"><%=booking.booking_status%></button><%}%>
+                        <br>  
+                    </div>
+                  </div>
+            <%}%>
+            <%}%>
+    </div>
+    <%}else{%>
+      <h3 id="heading3">No Bookings For You Now!</h3>
+    <%}%>

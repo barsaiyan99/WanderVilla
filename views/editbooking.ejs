@@ -1,0 +1,39 @@
+<% layout("/layouts/boilerplate")%>
+<div class="row">
+    <div class="col-8 offset-2 mt-2">
+        <h3>Edit Your Booking!</h3>
+        <form action="/listings/bookingsbyme/<%=booking._id%>/edit?_method=PUT" method="post" novalidate class="needs-validation">
+            <div class="mb-3">
+                <label for="title" class="form-label">Booking Name</label>
+                <input type="text" name="booking[booking_name]" value="<%=booking.booking_name%>" placeholder="Add your formal Name" class="form-control" required>
+                <div class="invalid-feedback">Enter a relevant Name</div>
+            </div>
+            <div class="mb-3">
+                <label for="check-in-date" class="form-label">Check-in Date</label>
+                <input type="date" name="booking[check_in_date]" value="<%=booking.check_in_date%>" class="form-control" required min="{{ today | date('yyyy-MM-dd') }}">
+                <div class="invalid-feedback">Please enter the check-in date.</div>
+            </div>
+            <div class="mb-3">
+                <label for="check-out-date" class="form-label">Check-out Date</label>
+                <input type="date" name="booking[check_out_date]" value="<%=booking.check_out_date%>" class="form-control" required min="{{ today | date('yyyy-MM-dd') }}">
+                <div class="invalid-feedback">Please enter the check-out date.</div>
+            </div>
+            <div class="mb-3">
+                <label for="number-of-guests" class="form-label">Number of Guests</label>
+                <input type="number" name="booking[number_of_guest]" value="<%=booking.number_of_guest%>" class="form-control" required min="1" max="4">
+                <div class="invalid-feedback">Please enter a valid number of guests (1 to 4).</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="room-type" class="form-label">Room Type</label>
+                <select name="booking[room_type]" class="form-select" required>
+                    <option value="normal" <%= booking.room_type === 'normal' ? 'selected' : '' %>>Normal</option>
+                    <option value="suplex" <%= booking.room_type === 'suplex' ? 'selected' : '' %>>Suplex</option>
+                </select>
+                <div class="invalid-feedback">Please select a valid room type (normal or suplex).</div>
+            </div>
+            <button class="btn btn-dark add-btn mb-2">Edit Booking!</button>
+        </form>
+    </div>
+</div>
+
