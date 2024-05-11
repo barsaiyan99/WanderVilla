@@ -24,7 +24,7 @@ body{
     text-align: center;
     display: flex;
     height: 8rem;
-    background-color: #ebebeb;
+    background-color: #FAF9F6;
     flex-wrap: wrap;
     justify-content: center;
     align-items: space-evenly;
@@ -93,7 +93,3 @@ body{
   padding-right: 0;  
 }
 /* filters */
-#map { 
-    height: 400px;
-    width: 100vh;
- }

@@ -1,4 +1,16 @@
 <% layout("/layouts/boilerplate")%>
+<style>
+  #map{
+    height: 20rem;
+    width: 40rem;
+  }
+  @media only screen and (max-width: 768px) {
+  #map{
+    height: 10rem;
+    width: 15rem;
+  }
+}
+</style>
 <script>const mapToken = '<%=process.env.MAP_TOKEN%>';
 const listing = <%-JSON.stringify(listing)%>;
 </script>
@@ -45,7 +57,7 @@ const listing = <%-JSON.stringify(listing)%>;
       <div class="offset-3 mb-3">
       <p><i>As of now listing availability is Open</i></p></div><hr>
       <form action="/listings/<%=listing._id%>/booking" method="get" class="offset-3 mb-3">
-        <h5>Book your Home Away From Home</h5>
+        <h5>Book your Listing</h5>
         <button class="btn btn-dark">Book Now!</button>
       </form>
       <%}else{%>
@@ -106,7 +118,7 @@ const listing = <%-JSON.stringify(listing)%>;
       <%}%>
     </div>
   </div>
-  <div class="col-8 offset-3 mb-3">
+  <div class="col-6 offset-3 mb-3">
     <h3>where you'll be</h3>
     <div id="map"></div>
   </div>

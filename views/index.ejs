@@ -39,11 +39,22 @@
     align-items: center;
     margin-top: 1rem;
 }
+.filter-ham{
+  display: none;
+}
   #heading3{
     text-align: center;
   }
   .show-filter{
     border: 0.5px solid black;
+  }
+  @media only screen and (max-width: 768px) {
+    #filters{
+      display: none;
+    }
+    .filter-ham{
+      display: block;
+    }
   }
 </style>
 <% layout("/layouts/boilerplate")%>
@@ -109,7 +120,26 @@
        <p>Remove Filters</p>
        </a>
        </div>
-  </div>
+      </div>
+       <div class="dropdown filter-ham mt-2">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-filter"></i>&nbsp;FILTERS
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/listings/trending"><i class="fa-solid fa-fire"></i>&nbsp;Trending</a></li>
+          <li><a class="dropdown-item" href="/listings/rooms"><i class="fa-solid fa-bed"></i>&nbsp;Rooms</a></li>
+          <li><a class="dropdown-item" href="/listings/iconiccities"><i class="fa-solid fa-mountain-city"></i>&nbsp;Iconic Cities</a></li>
+          <li><a class="dropdown-item" href="/listings/mountains"><i class="fa-solid fa-mountain"></i>&nbsp;Mountains</a></li>
+          <li><a class="dropdown-item" href="/listings/castles"><i class="fa-brands fa-fort-awesome"></i>&nbsp;Castles</a></li>
+          <li><a class="dropdown-item" href="/listings/amazingpools"><i class="fa-solid fa-person-swimming"></i>&nbsp;Amazing Pools</a></li>
+          <li><a class="dropdown-item" href="/listings/camping"><i class="fa-solid fa-campground"></i>&nbsp;Camping</a></li>
+          <li><a class="dropdown-item" href="/listings/farms"><i class="fa-solid fa-cow"></i>&nbsp;Farms</a></li>
+          <li><a class="dropdown-item" href="/listings/arctic"><i class="fa-regular fa-snowflake"></i>&nbsp;Arctic</a></li>
+          <li><a class="dropdown-item" href="/listings"><i class="fa-solid fa-square-xmark"></i>&nbsp;Remove Filters</a></li>
+
+        </ul>
+      </div>
+  
     <% if(allListings.length){%>
   <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
     <% for(listing of allListings){ %>
